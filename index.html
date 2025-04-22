@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanong Need Me</title>
+    <style>
+        /* CSS Styles */
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+        }
+
+        nav {
+            width: 100%;
+            background: rgba(44, 44, 44, 0.85);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(156, 156, 156);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: rgb(255, 255, 255);
+        }
+
+        #content {
+            margin-top: 60px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        form {
+            background: rgba(44, 44, 44, 0.85);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            backdrop-filter: blur(8px);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"], textarea {
+            width: 85%;
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #e0e0e0;
+            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            resize: none;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            background-color: rgba(51, 51, 51, 1);
+            box-shadow: 0 0 8px #bb86fc;
+        }
+
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: #888;
+        }
+
+        button {
+            width: 60%;
+            padding: 12px;
+            background-color: #bb86fc;
+            border: none;
+            border-radius: 25px;
+            color: #1a1a1a;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #9a67ea;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(2px);
+        }
+
+        textarea {
+            min-height: 60px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 90%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: rgba(44, 44, 44, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease;
+        }
+
+        caption {
+            font-size: 25px;
+            font-weight: bold;
+            color: #bb86fc;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            padding-top: 30px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+            transition: background 0.3s;
+        }
+
+        th {
+            background-color: #292929;
+            color: #bb86fc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr {
+            transition: background 0.3s;
+        }
+
+        tr:hover {
+            background-color: rgba(68, 68, 68, 0.8);
+            transform: scale(1.02);
+        }
+
+        td {
+            color: #d3d3d3;
+        }
+
+        td a {
+            color: #bb86fc;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        td a:hover {
+            background: #bb86fc;
+            color: #292929;
+        }
+
+        td a.delete {
+            color: #e57373;
+        }
+
+        td a.delete:hover {
+            background: #e57373;
+            color: #292929;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="#" onclick="loadContent('home')">Home</a></li>
+            <li><a href="#" onclick="loadContent('form_add')">Form</a></li>
+            <li><a href="#" onclick="loadContent('member_list')">Member List</a></li>
+            <li><a href="#" onclick="loadContent('contact')">Contact ME</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="content">
+        <h1>Welcome to Sanong Need Me</h1>
+        <p>This is the home page.</p>
+    </div>
+
+    <script>
+        // JavaScript Functions
+        function loadContent(page) {
+            let content = '';
+            switch (page) {
+                case 'home':
+                    content = `
+                        <h1>Welcome to Sanong Need Me</h1>
+                        <p>This is the home page.</p>
+                    `;
+                    break;
+                case 'form_add':
+                    content = `
+                        <h3>GOOD DAY (?)</h3>
+                        <form id="addForm">
+                            <input type="text" name="nickname" placeholder="Nickname" required><br>
+                            <textarea name="story" placeholder="Story" required></textarea><br>
+                            <button type="submit">Submit</button>
+                        </form>
+                    `;
+                    break;
+                case 'member_list':
+                    content = `
+                        <h1>Member List</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nickname</th>
+                                    <th>Story</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="memberTableBody">
+                                <!-- Member data will be loaded here -->
+                            </tbody>
+                        </table>
+                    `;
+                    loadMemberList();
+                    break;
+                case 'contact':
+                    content = `
+                        <h1>Contact Me</h1>
+                        <p>You can contact me at example@example.com.</p>
+                    `;
+                    break;
+                default:
+                    content = `
+                        <h1>Welcome to Sanong Need Me</h1>
+                        <p>This is the home page.</p>
+                    `;
+            }
+            document.getElementById('content').innerHTML = content;
+        }
+
+        function loadMemberList() {
+            // Simulate fetching data from a database
+            const members = [
+                { id: 1, nickname: 'John', story: 'Hello World!' },
+                { id: 2, nickname: 'Jane', story: 'I love coding.' },
+            ];
+
+            const tbody = document.getElementById('memberTableBody');
+            tbody.innerHTML = '';
+            members.forEach(member => {
+                const row = `
+                    <tr>
+                        <td>${member.id}</td>
+                        <td>${member.nickname}</td>
+                        <td>${member.story}</td>
+                        <td>
+                            <a href="#" onclick="editMember(${member.id})">Edit</a> | 
+                            <a href="#" onclick="deleteMember(${member.id})" class="delete">Delete</a>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function editMember(id) {
+            alert(`Edit member with ID: ${id}`);
+            // You can implement the edit functionality here
+        }
+
+        function deleteMember(id) {
+            if (confirm(`Are you sure you want to delete member with ID: ${id}?`)) {
+                alert(`Member with ID: ${id} deleted`);
+                // You can implement the delete functionality here
+            }
+        }
+
+        // Handle form submission
+        document.addEventListener('submit', function (e) {
+            if (e.target.id === 'addForm') {
+                e.preventDefault();
+                const nickname = e.target.nickname.value;
+                const story = e.target.story.value;
+                alert(`Nickname: ${nickname}\nStory: ${story}`);
+                // You can implement the form submission functionality here
+            }
+        });
+
+        // Load home content by default
+        loadContent('home');
+    </script>
+</body>
+</html>
